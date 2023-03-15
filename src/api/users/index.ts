@@ -1,3 +1,4 @@
+import { ulid } from "ulid";
 import { User } from "../../@types/users";
 
 let users: User[] = [];
@@ -7,9 +8,9 @@ const getTimeoutMilliseconds = () => {
 }
 /**
  * Fetches all users
- * @returns {User[]} all application users.
+ * @returns {Promise<User[]>} all application users.
  */
-const fetchUsers = () => new Promise<User[]>((resolve) => {
+const fetchUsers = (): Promise<User[]> => new Promise<User[]>((resolve) => {
     setTimeout(() => {
         resolve(users);
     }, getTimeoutMilliseconds());
@@ -20,7 +21,7 @@ const fetchUser = ({id}: {id: string}) => new Promise((resolve) => setTimeout(()
     resolve(user);
 }));
 
-const updateuser = ({
+const updateUser = ({
     id,
     email,
     username,
@@ -38,8 +39,27 @@ const updateuser = ({
     })
 }, getTimeoutMilliseconds()))
 
+const createUser = ({
+    email,
+    username,
+    password
+}: {email: string, username: string, password: string}) => new Promise<User>((resolve) => {
+    setTimeout(() => {
+        const user: User = {
+            id: ulid(),
+            email,
+            password,
+            username,
+            disabled: false,
+        };
+        users.push(user);
+        resolve(user);
+    }, getTimeoutMilliseconds())
+})
+
 export {
+    createUser,
     fetchUsers,
     fetchUser,
-    updateuser
+    updateUser
 }

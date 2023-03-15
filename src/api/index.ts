@@ -1,7 +1,8 @@
-import { fetchUsers, fetchUser, updateuser } from "./users";
+import { createUser, fetchUsers, fetchUser, updateUser } from "./users";
 
 export {
+    createUser,
     fetchUsers,
     fetchUser,
-    updateuser
+    updateUser
 }

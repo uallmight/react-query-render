@@ -6,18 +6,21 @@ export type EditInputProps = PropsWithChildren<{
     saveOnBlur?: boolean,
     editOnFocus?: boolean,
     onSave: (value: unknown) => void,
-}> & Pick<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "type"|"required"|"role"|"checked"|"defaultChecked"|"defaultValue">
+}> & Pick<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "type" | "title"|"required" | "role" | "checked" | "defaultChecked" | "defaultValue" | "name">
 
 const EditInput = ({
     initialValue,
-    type,
     children,
-    saveOnBlur,
     editOnFocus,
+    name,
+    required,
+    saveOnBlur,
+    title,
+    type,
     onSave,
 }: EditInputProps) => {
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [value, setValue] = useState<string|undefined>(initialValue);
+    const [value, setValue] = useState<string | undefined>(initialValue);
 
     const onEditClick = () => {
         setIsEditing(true);
@@ -35,23 +38,31 @@ const EditInput = ({
     }
 
     if (isEditing) {
-        return <input 
-            type={type}
-            value={value}
-            onBlur={onBlur}
-            onFocus={handleFocus}
-            onChange={(e) => setValue(e.currentTarget.value)} />
+        return (<div>
+            <label id={`${name}-label`} htmlFor={name}></label>
+            <input
+                title={title}
+                placeholder=''
+                aria-labelledby={`${name}-label`}
+                name={name}
+                type={type}
+                required={required}
+                value={value}
+                onBlur={onBlur}
+                onFocus={handleFocus}
+                onChange={(e) => setValue(e.currentTarget.value)} />
+        </div>)
     }
 
-    return <>
+    return <EditInputValue onEditClick={onEditClick}>
         {children}
-    </>;
+    </EditInputValue>
 }
 
 export type EditInputValueProps = PropsWithChildren<{
     onEditClick: () => void,
 }>;
-export const EditInputValue = ({children, onEditClick}: EditInputValueProps) => {
+export const EditInputValue = ({ children, onEditClick }: EditInputValueProps) => {
     return (<span className="flex flex-row p-x-1">
         {children}
         <EditSvg onClick={onEditClick} />

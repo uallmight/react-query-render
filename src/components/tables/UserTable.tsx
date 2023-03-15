@@ -38,8 +38,9 @@ const UserTableRow = ({
         <td>            
             <EditInput onSave={(password) => console.debug(password)} type="password">
                 <span>{password}</span>
-            </EditInput></td>
-        <td>{disabled ? <DisabledSvg /> : null}</td>
+            </EditInput>
+        </td>
+        <td>Actions here</td>
     </tr>)
 }
 
@@ -56,9 +57,9 @@ const UserTable = ({
                 <th>Actions</th>
             </tr>
         </thead>
-        <body>
-            {users?.length ? (users.map((user) => <UserTableRow id={user.id} disabled={user.disabled} email={user.email} password={user.password} editable username={user.username} />)) : null}
-        </body>
+        <tbody>
+            {users?.length ? (users.map((user) => <UserTableRow key={user.id} id={user.id} disabled={user.disabled} email={user.email} password={user.password} editable username={user.username} />)) : null}
+        </tbody>
     </table>)
 };
 
