@@ -8,8 +8,8 @@ const PrimaryButton = ({
     text,
     onClick
 }: PrimaryButtonProps) => {
-    return <button role="button" onClick={onClick}>
-
+    return <button role="navigation" className="rounded" onClick={onClick}>
+        {text}
     </button>
 }
 

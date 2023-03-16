@@ -1,8 +1,11 @@
 import React, {SVGProps} from "react";
 
-export type EditSvgProps = Pick<SVGProps<SVGSVGElement>, "onClick">;
-const EditSvg = ({onClick}: EditSvgProps) => (
+export type EditSvgProps = {
+  className?: string, 
+} & Pick<SVGProps<SVGSVGElement>, "onClick">;
+const EditSvg = ({className, onClick}: EditSvgProps) => (
   <svg
+    className={className}
     onClick={onClick}
     role="button"
     width="20px"

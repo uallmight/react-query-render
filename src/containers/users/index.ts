@@ -1,7 +1,7 @@
 import UserDashboard from "./UserDashboard";
-import AddUserForm from "./AddUserForm";
+import UserForm from "./UserForm";
 
 export {
     UserDashboard,
-    AddUserForm,
+    UserForm,
 }
