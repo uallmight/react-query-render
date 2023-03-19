@@ -71,7 +71,7 @@ const UserTableRow = ({
 
 const UserTable = ({ users }: UserTableProps): JSX.Element => {
   return (
-    <table>
+    <table className="w-full">
       <thead>
         <tr>
           {/* <th className="text-center">ID</th> */}

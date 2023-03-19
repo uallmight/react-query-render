@@ -47,6 +47,7 @@ const EditInput = ({
 
   const handleSave = async () => {
     if (value === initialValue) {
+      setIsEditing(false);
       return;
     }
     setIsSaving(true);
@@ -69,8 +70,8 @@ const EditInput = ({
   }
 
   return (
-    <div className="flex flex-row p-1 gap-x-2">
-      <div role="group" className="flex flex-col gap-y-2">
+    <div className="flex flex-row gap-x-2">
+      <div role="group" className="flex flex-col gap-y-2 grow">
         <label id={`${name}-label`} htmlFor={name}>
           {label}
         </label>
@@ -85,7 +86,7 @@ const EditInput = ({
           onChange={(e) => setValue(e.currentTarget.value)}
         />
       </div>
-      <PrimaryButton onClick={handleSave}>Save</PrimaryButton>
+      <PrimaryButton onClick={handleSave}>{value === initialValue ? "Cancel" : "Save"}</PrimaryButton>
     </div>
   );
 };
@@ -98,7 +99,7 @@ export const EditInputValue = ({
   onEditClick,
 }: EditInputValueProps) => {
   return (
-    <span className="flex flex-row p-x-1">
+    <span className="flex flex-row p-x-1 grow">
       {children}
       <EditSvg className="self-end" onClick={onEditClick} />
     </span>
