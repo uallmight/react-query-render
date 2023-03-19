@@ -33,71 +33,87 @@ const AddUserForm = () => {
     [username, email, password, createUser, queryClient]
   );
 
+  if (isSubmitting) {
+    return <SpinnerLoader />;
+  }
+
   return (
-    <SpinnerLoader loading={isSubmitting}>
-      <div>
-        <h2 className="text-lg font-bold">Create User Form</h2>
-        <form onSubmit={handleSubmit()} className="flex flex-col gap-2">
+    <div>
+      <h2 className="text-lg font-bold">Create User Form</h2>
+      <form onSubmit={handleSubmit()} className="flex flex-col gap-2">
+        <div className="flex flex-col">
+          <label id="username-label" className="font-bold">
+            Username<span className="text-red-500">*</span>
+          </label>
           <div className="flex flex-col">
-            <label id="username-label" className="font-bold">Username<span className="text-red-500">*</span></label>
-            <div className="flex flex-col">
-              <input
-                className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none"
-                required
-                aria-labelledby="username-label"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.currentTarget.value)}
-              />
-              <span id="username-required-label" className="text-red-500">Username is required</span>
-            </div>
+            <input
+              className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none"
+              required
+              aria-labelledby="username-label"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.currentTarget.value)}
+            />
+            <span id="username-required-label" className="text-red-500">
+              Username is required
+            </span>
           </div>
+        </div>
+        <div className="flex flex-col">
+          <label id="email-label" className="font-bold">
+            E-Mail<span className="text-red-500">*</span>
+          </label>
           <div className="flex flex-col">
-            <label id="email-label" className="font-bold">E-Mail<span className="text-red-500">*</span></label>
-            <div className="flex flex-col">
-              <input
-                className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none"
-                required
-                aria-labelledby="email-label"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-              />
-              <span id="email-required-label" className="text-red-500">Email is requried</span>
-              <span id="email-duplicate-label" className="text-red-500">Email already exists</span>
-            </div>
+            <input
+              className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none"
+              required
+              aria-labelledby="email-label"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+            <span id="email-required-label" className="text-red-500">
+              Email is requried
+            </span>
+            <span id="email-duplicate-label" className="text-red-500">
+              Email already exists
+            </span>
           </div>
+        </div>
+        <div className="flex flex-col">
+          <label id="password-label" className="font-bold">
+            Password<span className="text-red-500">*</span>
+          </label>
           <div className="flex flex-col">
-            <label id="password-label" className="font-bold">Password<span className="text-red-500">*</span></label>
-            <div className="flex flex-col">
-              <input
-                className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none"
-                required
-                aria-labelledby="password-label"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-              />
-              <span id="password-required-label" className="text-red-500">Password is requried</span>
-            </div>
+            <input
+              className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none"
+              required
+              aria-labelledby="password-label"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+            />
+            <span id="password-required-label" className="text-red-500">
+              Password is requried
+            </span>
           </div>
-          <div className="flex flex-row gap-x-2">
-            {isSubmitting ? (
-              <p>Saving...</p>
-            ) : (
-              <>
-                <button type="button" disabled={isSubmitting}>
-                  Cancel
-                </button>
-                <button type="submit" disabled={isSubmitting}>
-                  Save
-                </button>
-              </>
-            )}
-          </div>
-        </form>
-      </div>
-    </SpinnerLoader>
+        </div>
+        <div className="flex flex-row gap-x-2">
+          {isSubmitting ? (
+            <p>Saving...</p>
+          ) : (
+            <>
+              <button type="button" disabled={isSubmitting}>
+                Cancel
+              </button>
+              <button type="submit" disabled={isSubmitting}>
+                Save
+              </button>
+            </>
+          )}
+        </div>
+      </form>
+    </div>
   );
 };
 

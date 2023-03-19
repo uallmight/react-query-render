@@ -1,5 +1,5 @@
 import SpinnerLoader from "./spinner";
 
-export default {
+export {
     SpinnerLoader,
 }

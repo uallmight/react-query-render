@@ -17,11 +17,7 @@ const UserDashboard = () => {
           Create User
         </PrimaryButton>
       </div>
-      <div className="grow flex flex-row">
-        <SpinnerLoader loading={isLoading}>
-          <UserTable users={users} />
-        </SpinnerLoader>
-      </div>
+      {isLoading ? (<SpinnerLoader />) : (<UserTable users={users} />)}
     </div>
   );
 };

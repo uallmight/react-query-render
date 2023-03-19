@@ -23,7 +23,7 @@ export type EditInputProps = PropsWithChildren<{
   >;
 /**
  * Edit input standardizing label and input styling and positions.
- * @param {EditInputProps} props 
+ * @param {EditInputProps} props
  * @returns {JSX.Element}
  */
 const EditInput = ({
@@ -58,31 +58,35 @@ const EditInput = ({
     }
   };
 
+  if (isSaving) {
+    return <SpinnerLoader />;
+  }
+
+  if (!isEditing) {
+    return (
+      <EditInputValue onEditClick={onEditClick}>{children}</EditInputValue>
+    );
+  }
+
   return (
-    <SpinnerLoader loading={isSaving}>
-      {isEditing ? (
-        <div className="flex flex-row p-1 gap-x-2">
-          <div role="group" className="flex flex-col gap-y-2">
-            <label id={`${name}-label`} htmlFor={name}>
-              {label}
-            </label>
-            <input
-              className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none grow"
-              title={title}
-              aria-labelledby={`${name}-label`}
-              name={name}
-              type={type}
-              required={required}
-              value={value}
-              onChange={(e) => setValue(e.currentTarget.value)}
-            />
-          </div>
-          <PrimaryButton onClick={handleSave}>Save</PrimaryButton>
-        </div>
-      ) : (
-        <EditInputValue onEditClick={onEditClick}>{children}</EditInputValue>
-      )}
-    </SpinnerLoader>
+    <div className="flex flex-row p-1 gap-x-2">
+      <div role="group" className="flex flex-col gap-y-2">
+        <label id={`${name}-label`} htmlFor={name}>
+          {label}
+        </label>
+        <input
+          className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none grow"
+          title={title}
+          aria-labelledby={`${name}-label`}
+          name={name}
+          type={type}
+          required={required}
+          value={value}
+          onChange={(e) => setValue(e.currentTarget.value)}
+        />
+      </div>
+      <PrimaryButton onClick={handleSave}>Save</PrimaryButton>
+    </div>
   );
 };
 

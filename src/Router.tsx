@@ -9,13 +9,9 @@ import {
 import Layout from "./Layout";
 
 const JoinedDashboard = () => {
-  return (<main className="flex flex-row p-4">
-    <div className="self-start grow">
-      <UserDashboard />
-    </div>
-    <div className="self-end shrink">
-      <UserForm />
-    </div>
+  return (<main className="grid grid-cols-2 grid-rows-1 gap-x-4">
+    <UserDashboard />
+    <UserForm />
   </main>)
 }
 
