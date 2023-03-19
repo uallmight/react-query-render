@@ -13,7 +13,9 @@ const UserDashboard = () => {
   return (
     <div>
       <div className="grow flex flex-row items-end">
-        <PrimaryButton onClick={() => navigation("/users/add")} text="Create User" />
+        <PrimaryButton onClick={() => navigation("/users/add")}>
+          Create User
+        </PrimaryButton>
       </div>
       <div className="grow flex flex-row">
         <SpinnerLoader loading={isLoading}>

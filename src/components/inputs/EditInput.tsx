@@ -1,20 +1,17 @@
-import React, {
-  useState,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  PropsWithChildren,
-} from "react";
+import React, { useState, InputHTMLAttributes, PropsWithChildren } from "react";
+import { PrimaryButton } from "../buttons";
 import { EditSvg } from "../icons";
 import SpinnerLoader from "../loaders/spinner";
 
 export type EditInputProps = PropsWithChildren<{
+  label: string;
   initialValue?: string;
   saveOnBlur?: boolean;
   editOnFocus?: boolean;
   onSave: (value: unknown | any) => Promise<void>;
 }> &
   Pick<
-    DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
+    InputHTMLAttributes<HTMLInputElement>,
     | "type"
     | "title"
     | "required"
@@ -24,8 +21,13 @@ export type EditInputProps = PropsWithChildren<{
     | "defaultValue"
     | "name"
   >;
-
+/**
+ * Edit input standardizing label and input styling and positions.
+ * @param {EditInputProps} props 
+ * @returns {JSX.Element}
+ */
 const EditInput = ({
+  label,
   initialValue,
   children,
   name,
@@ -34,7 +36,7 @@ const EditInput = ({
   title,
   type,
   onSave,
-}: EditInputProps) => {
+}: EditInputProps): JSX.Element => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [value, setValue] = useState<string | undefined>(initialValue);
@@ -44,6 +46,9 @@ const EditInput = ({
   };
 
   const handleSave = async () => {
+    if (value === initialValue) {
+      return;
+    }
     setIsSaving(true);
     try {
       await onSave?.(value);
@@ -56,21 +61,23 @@ const EditInput = ({
   return (
     <SpinnerLoader loading={isSaving}>
       {isEditing ? (
-        <div className="flex flex-row p-1">
-          <label id={`${name}-label`} htmlFor={name}></label>
-          <input
-            className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none grow"
-            title={title}
-            aria-labelledby={`${name}-label`}
-            name={name}
-            type={type}
-            required={required}
-            value={value}
-            onChange={(e) => setValue(e.currentTarget.value)}
-          />
-          <button type="button" onClick={handleSave}>
-            Save
-          </button>
+        <div className="flex flex-row p-1 gap-x-2">
+          <div role="group" className="flex flex-col gap-y-2">
+            <label id={`${name}-label`} htmlFor={name}>
+              {label}
+            </label>
+            <input
+              className="border-stone-700 border-x border-y rounded focus:border-cyan-400 focus:shadow-none grow"
+              title={title}
+              aria-labelledby={`${name}-label`}
+              name={name}
+              type={type}
+              required={required}
+              value={value}
+              onChange={(e) => setValue(e.currentTarget.value)}
+            />
+          </div>
+          <PrimaryButton onClick={handleSave}>Save</PrimaryButton>
         </div>
       ) : (
         <EditInputValue onEditClick={onEditClick}>{children}</EditInputValue>

@@ -7,7 +7,7 @@ export type SpinnerLoaderProps = React.PropsWithChildren<{
 }>
 const SpinnerLoader = ({children, loading}: SpinnerLoaderProps) => {
     if (loading) {
-        return (<div className="flex flex-row">
+        return (<div className="flex flex-row items-center">
             <SpinnerSvgIcon />
         </div>)
     }

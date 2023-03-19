@@ -21,7 +21,7 @@ const UserTableRow = ({
   disabled,
 }: UserTableRowProps): JSX.Element => {
   const updateUser = useUpdateUserMutation();
-  
+
   const handleSave = async (user: User) => {
     await updateUser.mutateAsync(user);
   };
@@ -30,18 +30,34 @@ const UserTableRow = ({
     <tr>
       {/* <td>{id}</td> */}
       <td className="p-2">
-        <EditInput onSave={(email: string) => handleSave({id, email, username, password})} type="email" initialValue={email}>
+        <EditInput
+          onSave={(email: string) =>
+            handleSave({ id, email, username, password })
+          }
+          type="email"
+          initialValue={email}
+          label="Email"
+          required
+        >
           <span className="grow">{email}</span>
         </EditInput>
       </td>
       <td className="p-2">
-        <EditInput onSave={(username) => handleSave({id, email, username, password})} type="text" initialValue={username}>
+        <EditInput
+          onSave={(username) => handleSave({ id, email, username, password })}
+          type="text"
+          initialValue={username}
+          label="Username"
+          required
+        >
           <span className="grow">{username}</span>
         </EditInput>
       </td>
       <td className="p-2">
         <EditInput
-          onSave={(password) => handleSave({id, email, username, password})}
+          label="Password"
+          required
+          onSave={(password) => handleSave({ id, email, username, password })}
           type="password"
           initialValue={password}
         >
@@ -85,4 +101,3 @@ const UserTable = ({ users }: UserTableProps): JSX.Element => {
 };
 
 export default UserTable;
-
